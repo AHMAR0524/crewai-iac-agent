@@ -1,0 +1,5 @@
+# Core requirements for hierarchical_crew_automation_for_iac_and_ci_cd_management
+pyyaml
+crewai
+crewai-tools
+pydantic

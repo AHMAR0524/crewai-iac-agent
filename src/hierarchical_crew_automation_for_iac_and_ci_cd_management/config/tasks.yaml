@@ -1,0 +1,41 @@
+---
+pull_repositories:
+  description: Use the GitHub URL {github_repo_url} to pull repositories from GitHub.
+  expected_output: Repositories successfully pulled from GitHub.
+  async_execution: false
+  agent: repo_puller
+analyze_directory:
+  description: Read and analyze contents of the directory {directory_path} to gather
+    necessary data for infrastructure setup.
+  expected_output: Detailed analysis of directory contents, identifying key files
+    and structures for infrastructure setup.
+  async_execution: false
+  agent: file_analyzer
+  context:
+  - pull_repositories
+generate_terraform_files:
+  description: Create Terraform configuration files based on the analysis of the directory
+    contents.
+  expected_output: Terraform configuration files ready for deployment.
+  async_execution: false
+  agent: terraform_generator
+  context:
+  - analyze_directory
+setup_cicd_pipelines:
+  description: Develop CI/CD pipeline configurations in YAML format using the analyzed
+    data.
+  expected_output: CI/CD pipeline configurations in YAML format.
+  async_execution: false
+  agent: cicd_pipeline_creator
+  context:
+  - analyze_directory
+monitor_and_optimize:
+  description: Use {manager_llm_params} to oversee the entire process, suggest improvements,
+    and ensure efficient workflow.
+  expected_output: Continuous monitoring and optimization suggestions for improved
+    workflow.
+  async_execution: false
+  agent: manager_llm
+  context:
+  - generate_terraform_files
+  - setup_cicd_pipelines
